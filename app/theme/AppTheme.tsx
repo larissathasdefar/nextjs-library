@@ -18,14 +18,14 @@ export default function AppTheme(props: AppThemeProps) {
   const { children, themeComponents } = props;
   const theme = React.useMemo(() => {
     return createTheme({
-      cssVariables: {
-        colorSchemeSelector: "data-mui-color-scheme",
-        cssVarPrefix: "template",
-      },
       colorSchemes,
       typography,
       shadows,
       shape,
+      cssVariables: {
+        colorSchemeSelector: "data-mui-color-scheme",
+        cssVarPrefix: "template",
+      },
       components: {
         ...inputsCustomizations,
         ...dataDisplayCustomizations,
