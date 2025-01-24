@@ -7,10 +7,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import BookIcon from "@mui/icons-material/Book";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import FaceIcon from "@mui/icons-material/Face";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
 const MENU_WIDTH = 240;
+
+const MENU_ITEMS = [
+  { title: "Books", icon: <BookIcon /> },
+  { title: "Loans", icon: <MenuBookIcon /> },
+  { title: "Customers", icon: <FaceIcon /> },
+  { title: "Users", icon: <PeopleAltIcon /> },
+];
 
 export default function AdminLayout({
   children,
@@ -22,7 +31,6 @@ export default function AdminLayout({
       <Drawer
         sx={{
           width: MENU_WIDTH,
-          flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: MENU_WIDTH,
             boxSizing: "border-box",
@@ -34,13 +42,11 @@ export default function AdminLayout({
         <Toolbar />
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {MENU_ITEMS.map(({ title, icon }) => (
+            <ListItem key={title} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={title} />
               </ListItemButton>
             </ListItem>
           ))}
