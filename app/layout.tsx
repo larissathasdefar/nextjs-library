@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 // TODO: adjust this to be able to use metadata here removing the "use client" statement
+//          the use client is being used because of the material ui theme setup
 // export const metadata: Metadata = {
 //   title: "Next.js Library System",
 //   description: "Generated using create next app and maintained by Larissa Farias",
