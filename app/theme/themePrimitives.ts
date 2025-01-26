@@ -397,7 +397,7 @@ export const shape = {
   borderRadius: 8,
 };
 
-// @ts-expect-error
+// @ts-expect-error: and so said the theme maker
 const defaultShadows: Shadows = [
   "none",
   "var(--template-palette-baseShadow)",

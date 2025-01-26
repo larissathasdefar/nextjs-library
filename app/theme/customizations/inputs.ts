@@ -8,7 +8,6 @@ import { toggleButtonClasses } from "@mui/material/ToggleButton";
 // import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import { gray, brand } from "../themePrimitives";
 
-/* eslint-disable import/prefer-default-export */
 export const inputsCustomizations: Components<Theme> = {
   MuiButtonBase: {
     defaultProps: {
