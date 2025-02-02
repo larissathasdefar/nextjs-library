@@ -12,7 +12,7 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        // TODO: check why not redirecting after sign in to admin page
+        // TODO: improve redirect between user and admin dashboard
         return Response.redirect(new URL("/admin/users", nextUrl));
       }
       return true;
