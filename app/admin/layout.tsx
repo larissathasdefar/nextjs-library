@@ -48,9 +48,11 @@ export default async function AdminLayout({
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
+        <Toolbar>
+          <Typography variant="h4">Your Library!</Typography>
+        </Toolbar>
         <Divider />
-        <List>
+        <List sx={{ flex: 1 }}>
           {MENU_ITEMS.map(({ title, icon, href }) => (
             <ListItem key={title} disablePadding>
               <Link href={href}>
