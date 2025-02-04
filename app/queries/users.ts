@@ -16,3 +16,16 @@ export async function fetchUsers() {
     throw new Error("Failed to fetch users data.");
   }
 }
+
+export async function fetchUser(user: string) {
+  try {
+    const client = await db.connect();
+    const data =
+      await client.sql<User>`SELECT id, name, email, type FROM users WHERE id=${user}`;
+
+    return data.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch users data.");
+  }
+}
