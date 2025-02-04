@@ -50,8 +50,14 @@ export const surfacesCustomizations: Components<Theme> = {
     },
   },
   MuiPaper: {
+    styleOverrides: {
+      root: {
+        background: "none",
+      },
+    },
     defaultProps: {
       elevation: 0,
+      variant: "outlined",
     },
   },
   MuiCard: {

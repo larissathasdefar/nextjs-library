@@ -210,6 +210,12 @@ export const dataDisplayCustomizations: Components<Theme> = {
       },
     },
   },
+  MuiTable: {
+    defaultProps: {
+      size: "small",
+      stickyHeader: true,
+    },
+  },
   MuiIcon: {
     defaultProps: {
       fontSize: "small",

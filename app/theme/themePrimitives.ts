@@ -324,7 +324,6 @@ export const colorSchemes = {
       grey: {
         ...gray,
       },
-      divider: alpha(gray[700], 0.6),
       background: {
         default: "#101214",
         paper: "hsl(220, 30%, 7%)",

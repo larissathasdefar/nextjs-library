@@ -7,7 +7,8 @@ import { User } from "@/app/types/user";
 export async function fetchUsers() {
   try {
     const client = await db.connect();
-    const data = await client.sql<User>`SELECT * FROM users`;
+    const data =
+      await client.sql<User>`SELECT id, name, email, type FROM users`;
 
     return data.rows;
   } catch (error) {
