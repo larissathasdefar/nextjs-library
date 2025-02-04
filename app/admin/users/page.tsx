@@ -1,7 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { fetchUsers } from "@/app/queries/users";
 import Table from "@/app/components/Table";
-// import { User } from "@/app/types/user";
 
 export default async function Users() {
   const users = await fetchUsers();
