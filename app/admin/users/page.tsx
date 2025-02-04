@@ -2,6 +2,11 @@ import Typography from "@mui/material/Typography";
 import { fetchUsers } from "@/app/queries/users";
 import Table from "@/app/components/Table";
 
+const userTypes = {
+  employee: "Employee",
+  customer: "Customer",
+};
+
 export default async function Users() {
   const users = await fetchUsers();
   // TODO: add skeleton on the data table with suspense
@@ -17,7 +22,11 @@ export default async function Users() {
           { field: "email", header: "Email" },
           { field: "type", header: "Type" },
         ]}
-        data={users}
+        data={users.map(({ type, ...others }) => ({
+          ...others,
+          type: userTypes[type],
+        }))}
+        getEditUrl={({ id }) => `/admin/users/${id}`}
       />
     </div>
   );

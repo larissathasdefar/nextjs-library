@@ -445,4 +445,9 @@ export const inputsCustomizations: Components<Theme> = {
       }),
     },
   },
+  MuiFormControl: {
+    defaultProps: {
+      fullWidth: true,
+    },
+  },
 };

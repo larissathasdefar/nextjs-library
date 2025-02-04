@@ -22,7 +22,7 @@ type Table<T extends object> = {
   data: Data<T>[];
   hasActions?: boolean;
   page?: number;
-  editUrl?: string;
+  getEditUrl?: (item: Data<T>) => string;
   deleteUrl?: string;
 };
 
@@ -31,7 +31,7 @@ export default function Table<T extends object>({
   data,
   hasActions = true,
   page = 0,
-  editUrl = "/",
+  getEditUrl,
   deleteUrl = "/",
 }: Table<T>) {
   return (
@@ -51,18 +51,17 @@ export default function Table<T extends object>({
           {data.map((item) => (
             <TableRow key={item.id}>
               {header.map(({ field }) => (
-                <TableCell
-                  key={`${item.id}-${field}`}
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  <Link href={editUrl}>{item[field]}</Link>
+                <TableCell key={`${item.id}-${field}`}>
+                  <Link href={getEditUrl ? getEditUrl(item) : "/"}>
+                    {item[field]}
+                  </Link>
                 </TableCell>
               ))}
               {hasActions && (
                 <TableCell>
                   <IconButton
                     size="small"
-                    href={editUrl}
+                    href={getEditUrl ? getEditUrl(item) : "/"}
                     sx={{ marginTop: "-9px", marginBottom: "-9px" }}
                   >
                     <EditIcon />
