@@ -9,12 +9,18 @@ export async function createUser(
   prevState: string | undefined,
   formData: FormData
 ) {
-  const { name, email, type, password } = CreateUserSchema.parse({
+  const parsedData = CreateUserSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     type: formData.get("type"),
     password: formData.get("password"),
   });
+
+  if (!parsedData.success) {
+    return parsedData.error?.errors[0].message;
+  }
+
+  const { name, email, type, password } = parsedData.data;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
