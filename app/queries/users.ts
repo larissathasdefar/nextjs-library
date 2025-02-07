@@ -3,12 +3,13 @@ import { User } from "@/app/types/user";
 
 // TODO: should I use a single types file or should I bring it to its fetch file?
 //          what about the zod validation?
+// TODO: add created_at and updated_at
 
 export async function fetchUsers() {
   try {
     const client = await db.connect();
     const data =
-      await client.sql<User>`SELECT id, name, email, type FROM users`;
+      await client.sql<User>`SELECT id, name, email, type FROM users ORDER BY id`;
 
     return data.rows;
   } catch (error) {
