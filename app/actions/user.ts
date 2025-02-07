@@ -2,17 +2,14 @@
 
 import bcrypt from "bcrypt";
 import { db } from "@vercel/postgres";
-import { FormSchema } from "@/app/types/user";
-import { revalidatePath } from "next/cache";
+import { CreateUserSchema, UpdateUserSchema } from "@/app/types/user";
 import { redirect } from "next/navigation";
-
-const CreateUser = FormSchema.omit({ id: true });
 
 export async function createUser(
   prevState: string | undefined,
   formData: FormData
 ) {
-  const { name, email, type, password } = CreateUser.parse({
+  const { name, email, type, password } = CreateUserSchema.parse({
     name: formData.get("name"),
     email: formData.get("email"),
     type: formData.get("type"),
@@ -33,17 +30,18 @@ export async function createUser(
     await client.sql`ROLLBACK`;
     return "Something went wrong!";
   }
+  // TODO: move queries to its own folder?
 
-  // TODO: do I need revalidatePath to update the users list?
-  revalidatePath("/admin/users");
   redirect("/admin/users");
 }
 
-export async function editUser(formData: FormData) {
-  // console.log(Object.fromEntries(formData.entries()));
+export async function editUser(
+  prevState: string | undefined,
+  formData: FormData
+) {
   // TODO: check if old password match
 
-  const { id, name, email, type, password } = FormSchema.parse({
+  const parsedData = UpdateUserSchema.safeParse({
     id: formData.get("id"),
     name: formData.get("name"),
     email: formData.get("email"),
@@ -51,26 +49,46 @@ export async function editUser(formData: FormData) {
     password: formData.get("password"),
   });
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  if (!parsedData.success) {
+    return parsedData.error?.errors[0].message;
+  }
+
+  const { id, name, email, type, password } = parsedData.data;
+
+  const hashedPassword =
+    password === "" ? "" : await bcrypt.hash(password || "", 10);
 
   const client = await db.connect();
   try {
-    await client.sql`BEGIN`;
-    await client.sql`
+    // TODO: for some reason when I try to interpolate password to use only one query it does not work
+    //       I need to check why is behaving like that
+    if (password === "") {
+      await client.sql`BEGIN`;
+      await client.sql`
+        UPDATE users SET
+          name = ${name},
+          email = ${email},
+          type = ${type}
+        WHERE id = ${id};
+      `;
+      await client.sql`COMMIT`;
+    } else {
+      await client.sql`BEGIN`;
+      await client.sql`
       UPDATE users SET
-        name="${name}",
-        email="${email}",
-        password="${hashedPassword}",
-        type="${type}"
-      WHERE id="${id}";
+        name = ${name},
+        email = ${email},
+        type = ${type},
+        password = ${hashedPassword}
+      WHERE id = ${id};
     `;
-    await client.sql`COMMIT`;
-  } catch {
+      await client.sql`COMMIT`;
+    }
+  } catch (e) {
+    console.log(e);
     await client.sql`ROLLBACK`;
     return "Something went wrong!";
   }
 
-  // TODO: do I need revalidatePath to update the users list?
-  revalidatePath("/admin/users");
   redirect("/admin/users");
 }

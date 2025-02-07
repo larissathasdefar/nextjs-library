@@ -120,7 +120,9 @@ export default function UserForm({
             </FormControl>
           </Grid>
           <Grid size={4} />
-          <Grid size={8} />
+          <Grid size={8}>
+            <input type="hidden" name="id" value={user.id} />
+          </Grid>
           <Grid size={4} sx={{ display: "flex", justifyContent: "end" }}>
             <Button
               href="/admin/users"
