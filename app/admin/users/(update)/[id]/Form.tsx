@@ -6,7 +6,9 @@ import { User } from "@/app/types/user";
 import UserForm from "@/app/admin/users/UserForm";
 
 export default function Form({ user }: { user: User }) {
-  const [error, submitAction, isPending] = useActionState(() => {}, undefined);
+  const [error, submitAction, isPending] = useActionState(() => {
+    return "";
+  }, undefined);
   return (
     <div>
       <Typography variant="h4" sx={{ marginBottom: "40px" }}>

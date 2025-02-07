@@ -18,7 +18,9 @@ export default function Menu({ options, children }: Menu) {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (callback?: () => void) => {
-    callback && callback();
+    if (callback) {
+      callback();
+    }
     setAnchorEl(null);
   };
   return (

@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid2";
 import FormHelperText from "@mui/material/FormHelperText";
 import MuiCard from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { User } from "@/app/types/user";
 import PasswordInput from "@/app/components/PasswordInput";
@@ -30,8 +31,8 @@ const userTypes = [
 
 type UserForm = {
   user: User;
-  error?: void | undefined;
-  submitAction: () => void;
+  error?: string | undefined;
+  submitAction: (payload: FormData) => void;
   isPending: boolean;
 };
 
@@ -106,7 +107,7 @@ export default function UserForm({
               <PasswordInput
                 fullWidth
                 name="password"
-                defaultValue={user.password}
+                defaultValue={user?.password || ""}
                 placeholder="••••••"
                 id="password"
               />
@@ -129,11 +130,12 @@ export default function UserForm({
             >
               Cancel
             </Button>
+            {/* TODO: change style when disabled for a loading state */}
             <Button type="submit" variant="contained" disabled={isPending}>
               Save
             </Button>
           </Grid>
-          {/* {error && <p>{error}</p>} */}
+          {error && <Typography>{error}</Typography>}
         </Grid>
       </Card>
     </Box>

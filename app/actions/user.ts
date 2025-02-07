@@ -29,8 +29,9 @@ export async function createUser(
       VALUES (${name}, ${email}, ${hashedPassword}, ${type});
     `;
     await client.sql`COMMIT`;
-  } catch (error) {
+  } catch {
     await client.sql`ROLLBACK`;
+    return "Something went wrong!";
   }
 
   // TODO: do I need revalidatePath to update the users list?
@@ -64,8 +65,9 @@ export async function editUser(formData: FormData) {
       WHERE id="${id}";
     `;
     await client.sql`COMMIT`;
-  } catch (error) {
+  } catch {
     await client.sql`ROLLBACK`;
+    return "Something went wrong!";
   }
 
   // TODO: do I need revalidatePath to update the users list?

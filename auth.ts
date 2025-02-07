@@ -6,11 +6,13 @@ import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "@/auth.config";
 import type { User } from "@/app/types/user";
 
-async function getUser(email: string): Promise<User | undefined> {
+type AuthUser = User & { password: string };
+
+async function getUser(email: string): Promise<AuthUser | undefined> {
   try {
     const client = await db.connect();
     const user =
-      await client.sql<User>`SELECT * FROM users WHERE email=${email}`;
+      await client.sql<AuthUser>`SELECT * FROM users WHERE email=${email}`;
 
     return user.rows[0];
   } catch (error) {

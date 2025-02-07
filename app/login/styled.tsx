@@ -2,7 +2,7 @@
 
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import { styled } from "@mui/material/styles"; // another option: import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 
 export const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
