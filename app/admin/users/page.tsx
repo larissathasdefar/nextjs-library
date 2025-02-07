@@ -1,4 +1,6 @@
 import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import { fetchUsers } from "@/app/queries/users";
 import Table from "@/app/components/Table";
 
@@ -13,9 +15,12 @@ export default async function Users() {
   // TODO: add search and pagination
   return (
     <div>
-      <Typography gutterBottom variant="h4">
-        Users
-      </Typography>
+      <Stack justifyContent={"space-between"} direction={"row"}>
+        <Typography gutterBottom variant="h4">
+          Users
+        </Typography>
+        <Button href="/admin/users/create">+ Create user</Button>
+      </Stack>
       <Table
         header={[
           { field: "name", header: "Name" },

@@ -51,7 +51,9 @@ export default function Table<T extends object>({
               <TableCell key={field}>{header}</TableCell>
             ))}
             {hasActions && (
-              <TableCell sx={{ paddingLeft: 3 }}>Actions</TableCell>
+              <TableCell sx={{ paddingLeft: 3, width: "110px" }}>
+                Actions
+              </TableCell>
             )}
           </TableRow>
         </TableHead>

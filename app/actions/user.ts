@@ -8,9 +8,10 @@ import { redirect } from "next/navigation";
 
 const CreateUser = FormSchema.omit({ id: true });
 
-export async function createUser(formData: FormData) {
-  // console.log(Object.fromEntries(formData.entries()));
-
+export async function createUser(
+  prevState: string | undefined,
+  formData: FormData
+) {
   const { name, email, type, password } = CreateUser.parse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -30,7 +31,6 @@ export async function createUser(formData: FormData) {
     await client.sql`COMMIT`;
   } catch (error) {
     await client.sql`ROLLBACK`;
-    return;
   }
 
   // TODO: do I need revalidatePath to update the users list?
@@ -66,7 +66,6 @@ export async function editUser(formData: FormData) {
     await client.sql`COMMIT`;
   } catch (error) {
     await client.sql`ROLLBACK`;
-    return;
   }
 
   // TODO: do I need revalidatePath to update the users list?
