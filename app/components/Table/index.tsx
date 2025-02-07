@@ -10,8 +10,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Pagination from "./Pagination";
 import Link from "@/app/components/Link";
+import { ReactNode } from "react";
 
-type Data<T extends object> = { [k in keyof T & string]: string | number } & {
+// PS: To define the type of the object, it's needed to do so using a mapped type
+// PS2: I'm letting this note for studies purposes, until I no longer need them
+// type Data<Objetinho extends object> = {
+//   [Chavinha in keyof Objetinho]: ReactNode;
+// } & { id: string; };
+type Data<T extends object> = {
+  [K in keyof T]: ReactNode;
+} & {
   id: string;
 }; // mapped type from T
 

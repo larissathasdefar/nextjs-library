@@ -23,7 +23,7 @@ export async function fetchUser(user: string) {
     const data =
       await client.sql<User>`SELECT id, name, email, type FROM users WHERE id=${user}`;
 
-    return data.rows;
+    return data.rows[0];
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch users data.");

@@ -5,6 +5,7 @@ export type User = {
   name: string;
   email: string;
   type: "employee" | "customer";
+  password?: string;
 };
 
 export const FormSchema = z.object({

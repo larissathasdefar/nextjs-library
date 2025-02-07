@@ -450,4 +450,9 @@ export const inputsCustomizations: Components<Theme> = {
       fullWidth: true,
     },
   },
+  MuiTextField: {
+    defaultProps: {
+      variant: "outlined",
+    },
+  },
 };
