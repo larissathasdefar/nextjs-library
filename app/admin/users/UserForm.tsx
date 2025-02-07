@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid2";
 import FormHelperText from "@mui/material/FormHelperText";
 import MuiCard from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
 import { User } from "@/app/types/user";
 import PasswordInput from "@/app/components/PasswordInput";
@@ -132,9 +133,8 @@ export default function UserForm({
             >
               Cancel
             </Button>
-            {/* TODO: change style when disabled for a loading state */}
             <Button type="submit" variant="contained" disabled={isPending}>
-              Save
+              {isPending ? <CircularProgress size={20} /> : "Save"}
             </Button>
           </Grid>
           {error && <Typography>{error}</Typography>}

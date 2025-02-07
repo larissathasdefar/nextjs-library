@@ -221,6 +221,14 @@ export const inputsCustomizations: Components<Theme> = {
               }),
             },
           },
+          {
+            props: {
+              disabled: true,
+            },
+            style: {
+              color: `${gray[400]} !important`,
+            },
+          },
         ],
       }),
     },
