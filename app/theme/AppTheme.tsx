@@ -1,6 +1,13 @@
+"use client";
+
 import * as React from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import type { ThemeOptions } from "@mui/material/styles";
+import {
+  ThemeProvider,
+  createTheme,
+  StyledEngineProvider,
+  ThemeOptions,
+} from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import { inputsCustomizations } from "./customizations/inputs";
 import { dataDisplayCustomizations } from "./customizations/dataDisplay";
 import { feedbackCustomizations } from "./customizations/feedback";
@@ -38,7 +45,10 @@ export default function AppTheme(props: AppThemeProps) {
   }, [themeComponents]);
   return (
     <ThemeProvider theme={theme} disableTransitionOnChange>
-      {children}
+      <StyledEngineProvider injectFirst>
+        <CssBaseline enableColorScheme />
+        {children}
+      </StyledEngineProvider>
     </ThemeProvider>
   );
 }
