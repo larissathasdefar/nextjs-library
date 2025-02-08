@@ -1,8 +1,6 @@
 import { db } from "@vercel/postgres";
 import { User } from "@/app/types/user";
 
-// TODO: should I use a single types file or should I bring it to its fetch file?
-//          what about the zod validation?
 // TODO: add created_at and updated_at
 
 export async function fetchUsers() {

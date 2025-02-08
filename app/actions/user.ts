@@ -34,7 +34,6 @@ export async function createUser(formData: FormData) {
     await client.sql`ROLLBACK`;
     return "Something went wrong!";
   }
-  // TODO: move queries to its own folder?
 
   redirect("/admin/users");
 }
