@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { startTransition } from "react";
 import Table from "@/app/components/Table";
 import { User } from "@/app/types/user";
 import { deleteUser } from "@/app/actions/user";
@@ -11,7 +11,6 @@ const userTypes = {
 };
 
 export default function ListUsers({ users }: { users: User[] }) {
-  const [, startTransition] = useTransition();
   const deleteItem = (id: string) => {
     startTransition(async () => {
       const error = await deleteUser(id);
