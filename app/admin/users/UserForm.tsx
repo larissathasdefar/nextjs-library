@@ -111,6 +111,7 @@ export default function UserForm({
               <PasswordInput
                 fullWidth
                 name="password"
+                autoComplete="new-password"
                 defaultValue={user?.password || ""}
                 placeholder="••••••"
                 id="password"
