@@ -88,7 +88,6 @@ export default async function AdminLayout({
         component="main"
         sx={{ float: "right", width: `calc(100% - ${MENU_WIDTH}px)`, p: 3 }}
       >
-        {/* TODO: add breadcrumb */}
         {children}
       </Box>
     </>
