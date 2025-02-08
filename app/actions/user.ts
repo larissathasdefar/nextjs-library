@@ -6,10 +6,7 @@ import { CreateUserSchema, UpdateUserSchema } from "@/app/types/user";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export async function createUser(
-  prevState: string | undefined,
-  formData: FormData
-) {
+export async function createUser(formData: FormData) {
   const parsedData = CreateUserSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -42,12 +39,7 @@ export async function createUser(
   redirect("/admin/users");
 }
 
-// TODO: check to not clean the fields after it gets some error
-
-export async function editUser(
-  prevState: string | undefined,
-  formData: FormData
-) {
+export async function editUser(formData: FormData) {
   // TODO: check if old password match
 
   const parsedData = UpdateUserSchema.safeParse({

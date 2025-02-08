@@ -1,15 +1,19 @@
 "use client";
 
-import { useActionState } from "react";
+import { useTransition, useState } from "react";
 import Typography from "@mui/material/Typography";
 import UserForm from "@/app/admin/users/UserForm";
 import { createUser } from "@/app/actions/user";
 
 export default function CreateUser() {
-  const [error, submitAction, isPending] = useActionState(
-    createUser,
-    undefined
-  );
+  const [error, setError] = useState<string | undefined>();
+  const [isPending, startTransition] = useTransition();
+  const handleCreateUser = (formData: FormData) => {
+    startTransition(async () => {
+      const error = await createUser(formData);
+      setError(error);
+    });
+  };
   return (
     <div>
       <Typography variant="h4" sx={{ marginBottom: "40px" }}>
@@ -25,7 +29,7 @@ export default function CreateUser() {
           password: "",
         }}
         error={error}
-        submitAction={submitAction}
+        onSubmit={handleCreateUser}
         isPending={isPending}
       />
     </div>

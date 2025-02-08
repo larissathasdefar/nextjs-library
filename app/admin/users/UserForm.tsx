@@ -33,20 +33,23 @@ const userTypes = [
 type UserForm = {
   user: User;
   error?: string | undefined;
-  submitAction: (payload: FormData) => void;
+  onSubmit: (payload: FormData) => void;
   isPending: boolean;
 };
 
 export default function UserForm({
   user,
   error,
-  submitAction,
+  onSubmit,
   isPending,
 }: UserForm) {
   return (
     <Box
       component="form"
-      action={submitAction}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(new FormData(e.currentTarget));
+      }}
       sx={{
         display: "flex",
         flexDirection: "column",
