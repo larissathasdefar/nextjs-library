@@ -2,12 +2,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { fetchUsers } from "@/app/queries/users";
-import Table from "@/app/components/Table";
-
-const userTypes = {
-  employee: "Employee",
-  customer: "Customer",
-};
+import ListUsers from "./ListUsers";
 
 export default async function Users() {
   const users = await fetchUsers();
@@ -21,18 +16,7 @@ export default async function Users() {
         </Typography>
         <Button href="/admin/users/create">+ Create user</Button>
       </Stack>
-      <Table
-        header={[
-          { field: "name", header: "Name" },
-          { field: "email", header: "Email" },
-          { field: "type", header: "Type" },
-        ]}
-        data={users.map(({ type, ...others }) => ({
-          ...others,
-          type: userTypes[type],
-        }))}
-        getEditUrl={({ id }) => `/admin/users/${id}`}
-      />
+      <ListUsers users={users} />
     </div>
   );
 }

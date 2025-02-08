@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { db } from "@vercel/postgres";
 import { CreateUserSchema, UpdateUserSchema } from "@/app/types/user";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function createUser(
   prevState: string | undefined,
@@ -40,6 +41,8 @@ export async function createUser(
 
   redirect("/admin/users");
 }
+
+// TODO: check to not clean the fields after it gets some error
 
 export async function editUser(
   prevState: string | undefined,
@@ -97,4 +100,22 @@ export async function editUser(
   }
 
   redirect("/admin/users");
+}
+
+export async function deleteUser(id: string) {
+  if (!id) return "No id was passed.";
+
+  const client = await db.connect();
+  try {
+    await client.sql`BEGIN`;
+    await client.sql`
+      DELETE FROM users WHERE id = ${id}
+    `;
+    await client.sql`COMMIT`;
+  } catch {
+    await client.sql`ROLLBACK`;
+    return "Something went wrong!";
+  }
+
+  revalidatePath("/admin/users");
 }

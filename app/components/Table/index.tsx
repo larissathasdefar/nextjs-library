@@ -1,3 +1,5 @@
+"use client";
+
 import TableMUI from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -31,7 +33,7 @@ type Table<T extends object> = {
   hasActions?: boolean;
   page?: number;
   getEditUrl?: (item: Data<T>) => string;
-  deleteUrl?: string;
+  onDelete?: (item: Data<T>) => void;
 };
 
 export default function Table<T extends object>({
@@ -40,7 +42,7 @@ export default function Table<T extends object>({
   hasActions = true,
   page = 0,
   getEditUrl,
-  deleteUrl = "/",
+  onDelete,
 }: Table<T>) {
   return (
     <TableContainer component={Paper}>
@@ -78,7 +80,7 @@ export default function Table<T extends object>({
                   </IconButton>
                   <IconButton
                     size="small"
-                    href={deleteUrl}
+                    onClick={() => onDelete && onDelete(item)}
                     sx={{ marginTop: "-9px", marginBottom: "-9px" }}
                   >
                     <DeleteIcon />
