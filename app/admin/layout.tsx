@@ -10,6 +10,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import BookIcon from "@mui/icons-material/Book";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import GenreIcon from "@mui/icons-material/Note";
+import BookTypeIcon from "@mui/icons-material/Style";
 import FaceIcon from "@mui/icons-material/Face";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Avatar from "@mui/material/Avatar";
@@ -24,6 +26,8 @@ const MENU_WIDTH = 240;
 
 const MENU_ITEMS = [
   { title: "Books", icon: <BookIcon />, href: "/admin/books" },
+  { title: "Genres", icon: <GenreIcon />, href: "/admin/genres" },
+  { title: "Book Types", icon: <BookTypeIcon />, href: "/admin/book-types" },
   { title: "Loans", icon: <MenuBookIcon />, href: "/admin/loans" },
   { title: "Customers", icon: <FaceIcon />, href: "/admin/customers" },
   { title: "Users", icon: <PeopleAltIcon />, href: "/admin/users" },
