@@ -81,8 +81,8 @@ export default function CustomerForm({
                 ))}
               </TextField>
               <FormHelperText>
-                If the customer doesn't have a user, you may leave this field
-                blank.
+                If the customer doesn&apos;t have an user, you may leave this
+                field blank.
               </FormHelperText>
             </FormControl>
           </Grid>
