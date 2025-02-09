@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, ChangeEvent } from "react";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
@@ -12,38 +13,38 @@ import MuiCard from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
+import { Customer } from "@/app/types/customer";
 import { User } from "@/app/types/user";
-import PasswordInput from "@/app/components/PasswordInput";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(4),
 }));
 
-const userTypes = [
-  {
-    value: "customer",
-    label: "Customer",
-  },
-  {
-    value: "employee",
-    label: "Employee",
-  },
-];
-
-type UserForm = {
-  user: User;
+type CustomerForm = {
+  customer: Customer;
+  users: User[];
   error?: string | undefined;
   onSubmit: (payload: FormData) => void;
   isPending: boolean;
 };
 
-export default function UserForm({
-  user,
+export default function CustomerForm({
+  customer,
+  users,
   error,
   onSubmit,
   isPending,
-}: UserForm) {
-  // TODO: add "*" to required fields
+}: CustomerForm) {
+  const nameFieldRef = useRef<HTMLInputElement | null>(null);
+  const handleChangeUser = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const userId = e.target.value;
+    const name = users.find(({ id }) => id === userId)?.name;
+    if (nameFieldRef.current) {
+      nameFieldRef.current.value = name || "";
+    }
+  };
   return (
     <Box
       component="form"
@@ -60,78 +61,79 @@ export default function UserForm({
       <Card variant="outlined">
         <Grid container spacing={2}>
           <Grid size={8}>
+            <FormControl sx={{ marginBottom: 1 }}>
+              <FormLabel>User</FormLabel>
+              <TextField
+                fullWidth
+                select
+                id="userId"
+                name="userId"
+                defaultValue={customer.userId || ""}
+                onChange={handleChangeUser}
+              >
+                <MenuItem key="none" value="">
+                  No user
+                </MenuItem>
+                {users.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <FormHelperText>
+                If the customer doesn't have a user, you may leave this field
+                blank.
+              </FormHelperText>
+            </FormControl>
+          </Grid>
+          <Grid size={4} />
+          <Grid size={8}>
             <FormControl>
-              <FormLabel htmlFor="name">Name</FormLabel>
+              <FormLabel htmlFor="name">Name *</FormLabel>
               <TextField
                 required
                 fullWidth
                 id="name"
                 name="name"
-                defaultValue={user.name}
+                defaultValue={customer.name}
                 placeholder="Name"
+                inputRef={nameFieldRef}
               />
             </FormControl>
           </Grid>
           <Grid size={4}>
             <FormControl>
-              <FormLabel>User type</FormLabel>
+              <FormLabel htmlFor="phone">Phone *</FormLabel>
               <TextField
                 required
                 fullWidth
-                select
-                id="type"
-                name="type"
-                defaultValue={user.type || "customer"}
-              >
-                {userTypes.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+                id="phone"
+                name="phone"
+                defaultValue={customer.phone}
+                placeholder="Phone"
+              />
             </FormControl>
           </Grid>
           <Grid size={8}>
             <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="address">Address *</FormLabel>
               <TextField
                 required
                 fullWidth
-                id="email"
-                type="email"
-                name="email"
-                defaultValue={user.email}
-                placeholder="your@email.com"
+                id="address"
+                name="address"
+                defaultValue={customer.address}
+                placeholder="1st Street, 985"
               />
             </FormControl>
           </Grid>
           <Grid size={4} />
           <Grid size={8}>
-            <FormControl sx={{ marginBottom: 1 }}>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <PasswordInput
-                fullWidth
-                name="password"
-                autoComplete="new-password"
-                defaultValue={user?.password || ""}
-                placeholder="••••••"
-                id="password"
-              />
-              {user.id !== "" && (
-                <FormHelperText>
-                  This is an optional field. Fill this field to change the
-                  password.
-                </FormHelperText>
-              )}
-            </FormControl>
-          </Grid>
-          <Grid size={4} />
-          <Grid size={8}>
-            <input type="hidden" name="id" value={user.id} />
+            <input type="hidden" name="id" value={customer.id} />
           </Grid>
           <Grid size={4} sx={{ display: "flex", justifyContent: "end" }}>
             <Button
-              href="/admin/users"
+              href="/admin/customers"
               variant="contained"
               disabled={isPending}
               sx={{ marginRight: 2 }}

@@ -71,9 +71,9 @@ const types = [
 const customers = [
   {
     id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81aa",
-    name: "Evil Rabbit",
-    phone: "evil@rabbit.com",
-    address: "/customers/evil-rabbit.png",
+    name: users[1].name,
+    phone: "book@bookbook.com",
+    address: "1st Street, 123",
     user_id: users[1].id,
   },
 ];
