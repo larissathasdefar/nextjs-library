@@ -29,6 +29,7 @@ export default function AppTheme(props: AppThemeProps) {
       typography,
       shadows,
       shape,
+      defaultColorScheme: "dark",
       cssVariables: {
         colorSchemeSelector: "data-mui-color-scheme",
         cssVarPrefix: "template",
