@@ -2,7 +2,6 @@
 
 import { useRef, ChangeEvent } from "react";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormLabel from "@mui/material/FormLabel";
@@ -13,6 +12,7 @@ import MuiCard from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
+import SelectField from "@/app/components/SelectField";
 import { Customer } from "@/app/types/customer";
 import { User } from "@/app/types/user";
 
@@ -63,23 +63,16 @@ export default function CustomerForm({
           <Grid size={8}>
             <FormControl sx={{ marginBottom: 1 }}>
               <FormLabel>User</FormLabel>
-              <TextField
+              <SelectField
                 fullWidth
-                select
                 id="userId"
                 name="userId"
+                placeholder="User"
+                options={users.map(({ id, name }) => ({ id, label: name }))}
                 defaultValue={customer.userId || ""}
+                disabled={customer.id !== "" && customer.userId !== null}
                 onChange={handleChangeUser}
-              >
-                <MenuItem key="none" value="">
-                  No user
-                </MenuItem>
-                {users.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
+              />
               <FormHelperText>
                 If the customer doesn&apos;t have an user, you may leave this
                 field blank.
