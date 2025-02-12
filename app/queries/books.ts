@@ -17,7 +17,7 @@ export async function fetchBooks() {
       FROM books
       JOIN genres ON books.genre_id = genres.id
       JOIN book_types ON books.type_id = book_types.id
-      ORDER BY id`;
+      ORDER BY books.id`;
 
     return data.rows;
   } catch (error) {
