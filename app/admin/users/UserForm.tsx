@@ -14,6 +14,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/material/styles";
 import { User } from "@/app/types/user";
 import PasswordInput from "@/app/components/PasswordInput";
+import SelectField from "@/app/components/SelectField";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -21,11 +22,11 @@ const Card = styled(MuiCard)(({ theme }) => ({
 
 const userTypes = [
   {
-    value: "customer",
+    id: "customer",
     label: "Customer",
   },
   {
-    value: "employee",
+    id: "employee",
     label: "Employee",
   },
 ];
@@ -75,20 +76,14 @@ export default function UserForm({
           <Grid size={4}>
             <FormControl>
               <FormLabel>User type</FormLabel>
-              <TextField
-                required
+              <SelectField
                 fullWidth
-                select
                 id="type"
                 name="type"
+                placeholder="User type"
+                options={userTypes}
                 defaultValue={user.type || "customer"}
-              >
-                {userTypes.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+              />
             </FormControl>
           </Grid>
           <Grid size={8}>
