@@ -74,7 +74,7 @@ export default function CustomerForm({
               />
               <FormHelperText>
                 If the customer doesn&apos;t have an user, you may leave this
-                field blank, but once it's set, it can't be changed.
+                field blank, but once it&apos;s set, it can&apos;t be changed.
               </FormHelperText>
             </FormControl>
           </Grid>
