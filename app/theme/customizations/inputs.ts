@@ -37,8 +37,8 @@ export const inputsCustomizations: Components<Theme> = {
               size: "small",
             },
             style: {
-              height: "2.25rem",
-              padding: "8px 12px",
+              height: "1.5rem",
+              padding: "4px 8px",
             },
           },
           {

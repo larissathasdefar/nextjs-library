@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactNode } from "react";
 import TableMUI from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,9 +11,8 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Pagination from "./Pagination";
 import Link from "@/app/components/Link";
-import { ReactNode } from "react";
+import Pagination from "./Pagination";
 
 // PS: To define the type of the object, it's needed to do so using a mapped type
 // PS2: I'm letting this note for studies purposes, until I no longer need them
@@ -32,6 +32,8 @@ type Table<T extends object> = {
   data: Data<T>[];
   hasActions?: boolean;
   page?: number;
+  actionsWidth?: string;
+  renderActions?: (item: Data<T>) => ReactNode;
   getEditUrl?: (item: Data<T>) => string;
   onDelete?: (item: Data<T>) => void;
 };
@@ -41,6 +43,8 @@ export default function Table<T extends object>({
   data,
   hasActions = true,
   page = 0,
+  actionsWidth = "110px",
+  renderActions,
   getEditUrl,
   onDelete,
 }: Table<T>) {
@@ -53,7 +57,7 @@ export default function Table<T extends object>({
               <TableCell key={field}>{header}</TableCell>
             ))}
             {hasActions && (
-              <TableCell sx={{ paddingLeft: 3, width: "110px" }}>
+              <TableCell sx={{ paddingLeft: 3, width: actionsWidth }}>
                 Actions
               </TableCell>
             )}
@@ -71,20 +75,26 @@ export default function Table<T extends object>({
               ))}
               {hasActions && (
                 <TableCell>
-                  <IconButton
-                    size="small"
-                    href={getEditUrl ? getEditUrl(item) : "/"}
-                    sx={{ marginTop: "-9px", marginBottom: "-9px" }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    onClick={() => onDelete && onDelete(item)}
-                    sx={{ marginTop: "-9px", marginBottom: "-9px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  {renderActions ? (
+                    renderActions(item)
+                  ) : (
+                    <>
+                      <IconButton
+                        size="small"
+                        href={getEditUrl ? getEditUrl(item) : "/"}
+                        sx={{ marginTop: "-9px", marginBottom: "-9px" }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        onClick={() => onDelete && onDelete(item)}
+                        sx={{ marginTop: "-9px", marginBottom: "-9px" }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </>
+                  )}
                 </TableCell>
               )}
             </TableRow>
