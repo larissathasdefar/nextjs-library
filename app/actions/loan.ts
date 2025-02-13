@@ -43,7 +43,7 @@ export async function returnBook(id: string) {
   if (!id) return "No id was passed.";
 
   const today = new Date();
-  const returnDate = format(addDays(today, 7), "y-MM-dd");
+  const returnDate = format(today, "y-MM-dd");
 
   const client = await db.connect();
   try {
