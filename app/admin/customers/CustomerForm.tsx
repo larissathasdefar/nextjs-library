@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, ChangeEvent } from "react";
+import { useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 import SelectField from "@/app/components/SelectField";
 import { Customer } from "@/app/types/customer";
 import { User } from "@/app/types/user";
+import { SelectChangeEvent } from "@mui/material";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -36,9 +37,7 @@ export default function CustomerForm({
   isPending,
 }: CustomerForm) {
   const nameFieldRef = useRef<HTMLInputElement | null>(null);
-  const handleChangeUser = (
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
+  const handleChangeUser = (e: SelectChangeEvent) => {
     const userId = e.target.value;
     const name = users.find(({ id }) => id === userId)?.name;
     if (nameFieldRef.current) {
@@ -75,7 +74,7 @@ export default function CustomerForm({
               />
               <FormHelperText>
                 If the customer doesn&apos;t have an user, you may leave this
-                field blank.
+                field blank, but once it's set, it can't be changed.
               </FormHelperText>
             </FormControl>
           </Grid>
