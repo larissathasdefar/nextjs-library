@@ -16,6 +16,7 @@ import FaceIcon from "@mui/icons-material/Face";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { auth } from "@/auth";
 import Menu from "@/app/components/Menu";
@@ -26,10 +27,10 @@ const MENU_WIDTH = 240;
 
 const MENU_ITEMS = [
   { title: "Books", icon: <BookIcon />, href: "/admin/books" },
-  { title: "Genres", icon: <GenreIcon />, href: "/admin/genres" },
   { title: "Book Types", icon: <BookTypeIcon />, href: "/admin/book-types" },
-  { title: "Loans", icon: <MenuBookIcon />, href: "/admin/loans" },
   { title: "Customers", icon: <FaceIcon />, href: "/admin/customers" },
+  { title: "Genres", icon: <GenreIcon />, href: "/admin/genres" },
+  { title: "Loans", icon: <MenuBookIcon />, href: "/admin/loans" },
   { title: "Users", icon: <PeopleAltIcon />, href: "/admin/users" },
 ];
 
@@ -57,6 +58,11 @@ export default async function AdminLayout({
         </Toolbar>
         <Divider />
         <List sx={{ flex: 1 }}>
+          <ListItem disablePadding>
+            <Link href="/admin/loans/create">
+              <Button variant="contained">Loan a book!</Button>
+            </Link>
+          </ListItem>
           {MENU_ITEMS.map(({ title, icon, href }) => (
             <ListItem key={title} disablePadding>
               <Link href={href}>
