@@ -82,6 +82,7 @@ export default function BookForm({
               <FormLabel htmlFor="genre">Genre *</FormLabel>
               <SelectField
                 fullWidth
+                required
                 id="genreId"
                 name="genreId"
                 defaultValue={book.genreId}
@@ -95,6 +96,7 @@ export default function BookForm({
               <FormLabel htmlFor="typeId">Type *</FormLabel>
               <SelectField
                 fullWidth
+                required
                 id="typeId"
                 name="typeId"
                 defaultValue={book.typeId}

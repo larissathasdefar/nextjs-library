@@ -77,6 +77,7 @@ export default function UserForm({
               <FormLabel>User type</FormLabel>
               <SelectField
                 fullWidth
+                required
                 id="type"
                 name="type"
                 placeholder="User type"
