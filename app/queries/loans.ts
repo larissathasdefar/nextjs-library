@@ -18,6 +18,8 @@ export async function fetchLoans() {
       JOIN customers ON loans.customer_id = customers.id
       ORDER BY loans.id`;
 
+    await client.release();
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);

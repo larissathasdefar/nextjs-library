@@ -7,6 +7,8 @@ export async function fetchGenres() {
     const data =
       await client.sql<Genre>`SELECT id, name FROM genres ORDER BY id`;
 
+    await client.release();
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
@@ -19,6 +21,8 @@ export async function fetchGenre(id: string) {
     const client = await db.connect();
     const data =
       await client.sql<Genre>`SELECT id, name FROM genres WHERE id=${id}`;
+
+    await client.release();
 
     return data.rows[0];
   } catch (error) {

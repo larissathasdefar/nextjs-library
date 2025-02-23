@@ -1,6 +1,8 @@
 import { db } from "@vercel/postgres";
 import { Book } from "@/app/types/book";
 
+export const dynamic = "force-dynamic";
+
 export async function fetchBooks() {
   try {
     const client = await db.connect();
@@ -19,6 +21,9 @@ export async function fetchBooks() {
       JOIN book_types ON books.type_id = book_types.id
       ORDER BY books.id`;
 
+    // TODO: check what is better, use release() or getServerSideProps()
+    await client.release();
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
@@ -35,6 +40,8 @@ export async function fetchBooksForSelect() {
       FROM books
       ORDER BY books.title`;
 
+    await client.release();
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
@@ -49,6 +56,8 @@ export async function fetchBook(id: string) {
         id, title, author, TO_CHAR(publication_date, 'YYYY-MM-DD') AS "publicationDate", location,
         genre_id AS "genreId", type_id AS "typeId"
       FROM books WHERE id=${id}`;
+
+    await client.release();
 
     return data.rows[0];
   } catch (error) {

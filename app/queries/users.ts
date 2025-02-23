@@ -9,6 +9,8 @@ export async function fetchUsers() {
     const data =
       await client.sql<User>`SELECT id, name, email, type FROM users ORDER BY id`;
 
+    await client.release();
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
@@ -21,6 +23,8 @@ export async function fetchUser(id: string) {
     const client = await db.connect();
     const data =
       await client.sql<User>`SELECT id, name, email, type FROM users WHERE id=${id}`;
+
+    await client.release();
 
     return data.rows[0];
   } catch (error) {

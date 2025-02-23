@@ -7,6 +7,8 @@ export async function fetchBookTypes() {
     const data =
       await client.sql<BookType>`SELECT id, name FROM book_types ORDER BY id`;
 
+    await client.release();
+
     return data.rows;
   } catch (error) {
     console.error("Database Error:", error);
@@ -19,6 +21,8 @@ export async function fetchBookType(id: string) {
     const client = await db.connect();
     const data =
       await client.sql<BookType>`SELECT id, name FROM book_types WHERE id=${id}`;
+
+    await client.release();
 
     return data.rows[0];
   } catch (error) {
