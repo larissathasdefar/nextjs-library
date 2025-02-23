@@ -26,6 +26,22 @@ export async function fetchBooks() {
   }
 }
 
+export async function fetchBooksForSelect() {
+  try {
+    const client = await db.connect();
+    const data = await client.sql<Book>`SELECT
+        books.id,
+        books.title
+      FROM books
+      ORDER BY books.title`;
+
+    return data.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch books data.");
+  }
+}
+
 export async function fetchBook(id: string) {
   try {
     const client = await db.connect();
