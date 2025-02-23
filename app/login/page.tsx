@@ -50,6 +50,7 @@ export default function SignIn() {
               placeholder="your@email.com"
               autoComplete="email"
               variant="outlined"
+              defaultValue="admin@admin.com"
             />
           </FormControl>
           <FormControl sx={{ marginBottom: 1 }}>
@@ -63,6 +64,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
               variant="outlined"
+              defaultValue="123456"
             />
           </FormControl>
           <Button
