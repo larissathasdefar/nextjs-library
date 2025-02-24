@@ -21,7 +21,6 @@ export async function fetchBooks() {
       JOIN book_types ON books.type_id = book_types.id
       ORDER BY books.id`;
 
-    // TODO: check what is better, use release() or getServerSideProps()
     await client.release();
 
     return data.rows;
